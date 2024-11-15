@@ -1,7 +1,15 @@
 package com.example.service;
 
-import com.example.dao.*;
-import com.example.model.*;
+import com.example.dao.AdministratorDAO;
+import com.example.dao.AlumnoDAO;
+import com.example.dao.MateriaDAO;
+import com.example.dao.TutorDAO;
+import com.example.dao.UsuarioDAO;
+import com.example.model.Administrador;
+import com.example.model.Alumno;
+import com.example.model.Materia;
+import com.example.model.Tutor;
+import com.example.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

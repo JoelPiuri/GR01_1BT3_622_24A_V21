@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/layouts/header.jsp" %>
 <html>
 <head>
   <title>Usuario - Sistema Asistencia Virtual FIS</title>

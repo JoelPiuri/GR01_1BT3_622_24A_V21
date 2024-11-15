@@ -4,7 +4,9 @@ import com.example.model.Materia;
 import com.example.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 public class MateriaDAO {

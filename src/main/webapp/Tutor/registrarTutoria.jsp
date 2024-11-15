@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/layouts/header.jsp" %>
 <html>
 <head>
   <title>Registrar Tutoría</title>
@@ -29,10 +30,9 @@
         horaFin.appendChild(optionFin);
       }
     }
-
   </script>
 </head>
-<body onload="generarHoras(); generarMinutos();">
+<body onload="generarHoras();">
 <h2>Registrar una Nueva Tutoría</h2>
 <form action="${pageContext.request.contextPath}/RegistrarTutoriaServlet" method="post">
   <!-- Menú desplegable para seleccionar la materia -->
@@ -55,6 +55,10 @@
   <!-- Hora de fin: entre 9 AM y 6 PM -->
   <label for="horaFinSelect">Hora de fin:</label>
   <select id="horaFinSelect" name="horaFinSelect" required></select><br> :
+
+  <!-- Campo para cupos -->
+  <label for="cupos">Cupos:</label>
+  <input type="number" id="cupos" name="cupos" min="1" required><br>
 
   <button type="submit">Registrar</button>
 </form>

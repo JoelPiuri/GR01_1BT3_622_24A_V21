@@ -1,7 +1,7 @@
 package com.example.servlet;
 
-import com.example.model.Usuario;
 import com.example.service.SeleccionRolService;
+import com.example.model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

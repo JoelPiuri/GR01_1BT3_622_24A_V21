@@ -1,13 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ include file="/layouts/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
   <title>Responde la Encuesta</title>
+  <script type="text/javascript">
+    // Función para validar que todas las preguntas tienen una respuesta
+    function validarEncuesta() {
+      // Obtener todas las preguntas (grupos de radio buttons)
+      const preguntas = document.querySelectorAll('input[type="radio"]');
+      const preguntasMap = new Map();
+
+      // Agrupar las preguntas por id para verificar si al menos una opción fue seleccionada
+      preguntas.forEach(pregunta => {
+        const idPregunta = pregunta.name.split('_')[1];
+        if (!preguntasMap.has(idPregunta)) {
+          preguntasMap.set(idPregunta, false); // Inicializar como no respondida
+        }
+        if (pregunta.checked) {
+          preguntasMap.set(idPregunta, true); // Marcar como respondida si está seleccionada
+        }
+      });
+
+      // Verificar si todas las preguntas están respondidas
+      for (let [id, respondida] of preguntasMap) {
+        if (!respondida) {
+          alert("Por favor, responde a todas las preguntas antes de enviar.");
+          return false; // Prevenir el envío del formulario
+        }
+      }
+
+      return true; // Permitir el envío del formulario
+    }
+  </script>
 </head>
 <body>
 <h2>Responde la Encuesta</h2>
-<form action="${pageContext.request.contextPath}/guardarRespuesta" method="post">
+<form action="${pageContext.request.contextPath}/guardarRespuesta" method="post" onsubmit="return validarEncuesta();">
   <c:forEach var="pregunta" items="${preguntas}">
     <div>
       <p>${pregunta.pregunta}</p>

@@ -1,6 +1,7 @@
 package com.example.dao;
 
 import com.example.model.Administrador;
+import com.example.model.Alumno;
 import com.example.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

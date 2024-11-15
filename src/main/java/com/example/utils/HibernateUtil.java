@@ -19,8 +19,13 @@ public class HibernateUtil {
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+    // Agrega este método para poder inyectar un SessionFactory simulado en pruebas
+    public static void setSessionFactory(SessionFactory sessionFactory) {
+        HibernateUtil.sessionFactory = sessionFactory;
+    }
 
     public static void shutdown() {
         getSessionFactory().close();
     }
+
 }
