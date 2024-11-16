@@ -8,7 +8,7 @@
         <!--<property name="hibernate.connection.url">jdbc:sqlite:D:\Users\joel.piuri\GR01_1BT3_622_24A_V21\src\main\resources\TutoriasDB.db</property>-->
 
         <!-- Linea para empaquetar en el contenedor de tomcat -->
-       <property name="hibernate.connection.url">jdbc:sqlite:C:\Users\SoloParaKerlly\Documents\GitHub\GR01_1BT3_622_24A_V21\src\main\resources\TutoriasDB.db</property>
+       <property name="hibernate.connection.url">jdbc:sqlite:webapps/GR01_1BT3_622_24A_V21/WEB-INF/classes/TutoriasDB.db</property>
 
         <!-- SQLite Dialect -->
         <property name="hibernate.dialect">org.sqlite.hibernate.dialect.SQLiteDialect</property>
