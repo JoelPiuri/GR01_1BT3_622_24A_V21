@@ -65,5 +65,23 @@ public class RegistroUsuarioServiceTest {
         });
         Assertions.assertEquals("La contraseña es obligatoria.", exception.getMessage());
     }
+
+    @Test
+    public void testRegistrarUsuario_CorreoExistenteAlumno() {
+        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+            registroUsuarioService.registrarUsuario("Ale", "Vizuete", "kerlly.vizuete@epn.edu.ec",
+                    "1", "kerlly", "password123", null);
+        });
+        Assertions.assertTrue(exception.getMessage().contains("El correo ya está registrado"));
+    }
+
+    @Test
+    public void testRegistrarUsuario_RolIncorrecto() {
+        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            registroUsuarioService.registrarUsuario("Kerlly", "Luna", "kerlly.luna@epn.edu.ec",
+                    "10", "kerlly-luna", "password789", null);
+        });
+        Assertions.assertEquals("Rol no válido para el registro de usuarios.", exception.getMessage());
+    }
 }
 
