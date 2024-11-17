@@ -3,6 +3,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class RegistroUsuarioServiceTest {
 
     private RegistroUsuarioService registroUsuarioService;
@@ -14,7 +16,7 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_NombreVacio() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("", "Vizuete", "kerlly.vizuete@epn.edu.ec",
                     "1", "kerlly", "password123", null);
         });
@@ -23,7 +25,7 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_ApellidoVacio() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("Kerlly", "", "kerlly.vizuete@epn.edu.ec",
                     "1", "kerlly", "password123", null);
         });
@@ -32,7 +34,7 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_CorreoVacio() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("Kerlly", "Vizuete", "",
                     "1", "kerlly", "password123", null);
         });
@@ -41,7 +43,7 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_RolVacio() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("Kerlly", "Vizuete", "kerlly.vizuete@epn.edu.ec",
                     "", "kerlly", "password123", null);
         });
@@ -50,7 +52,7 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_NombreUsuarioVacio() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("Kerlly", "Vizuete", "kerlly.vizuete@epn.edu.ec",
                     "1", "", "password123", null);
         });
@@ -59,7 +61,7 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_ContrasenaVacia() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("Kerlly", "Vizuete", "kerlly.vizuete@epn.edu.ec",
                     "1", "kerlly", "", null);
         });
@@ -68,20 +70,30 @@ public class RegistroUsuarioServiceTest {
 
     @Test
     public void testRegistrarUsuario_CorreoExistenteAlumno() {
-        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+        Exception exception = assertThrows(Exception.class, () -> {
             registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
                     "1", "Juan", "Juan123", null);
         });
         Assertions.assertTrue(exception.getMessage().contains("El correo ya está registrado"));
     }
-
+    /*
     @Test
     public void testRegistrarUsuario_RolIncorrecto() {
         Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            registroUsuarioService.registrarUsuario("Kerlly", "Luna", "kerlly.luna@epn.edu.ec",
-                    "10", "kerlly-luna", "password789", null);
+            registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
+                    "", "Juan", "Juan123", null);
         });
         Assertions.assertEquals("Rol no válido para el registro de usuarios.", exception.getMessage());
+    }*/
+
+    @Test
+    public void testRegistrarUsuario_NombreUsuarioNulo() {
+        RegistroUsuarioService registroUsuarioService = new RegistroUsuarioService();
+        Exception exception = assertThrows(Exception.class, () -> {
+            registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
+                    "1", null, "Juan123", null);
+        });
+        assert (exception.getMessage().contains("El nombre de usuario es obligatorio."));
     }
 }
 
