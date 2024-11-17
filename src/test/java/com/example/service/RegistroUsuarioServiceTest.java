@@ -69,8 +69,8 @@ public class RegistroUsuarioServiceTest {
     @Test
     public void testRegistrarUsuario_CorreoExistenteAlumno() {
         Exception exception = Assertions.assertThrows(Exception.class, () -> {
-            registroUsuarioService.registrarUsuario("Ale", "Vizuete", "kerlly.vizuete@epn.edu.ec",
-                    "1", "kerlly", "password123", null);
+            registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
+                    "1", "Juan", "Juan123", null);
         });
         Assertions.assertTrue(exception.getMessage().contains("El correo ya está registrado"));
     }
