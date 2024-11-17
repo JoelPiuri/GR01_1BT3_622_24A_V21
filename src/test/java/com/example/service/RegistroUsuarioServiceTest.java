@@ -76,15 +76,6 @@ public class RegistroUsuarioServiceTest {
         });
         Assertions.assertTrue(exception.getMessage().contains("El correo ya está registrado"));
     }
-    /*
-    @Test
-    public void testRegistrarUsuario_RolIncorrecto() {
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
-                    "", "Juan", "Juan123", null);
-        });
-        Assertions.assertEquals("Rol no válido para el registro de usuarios.", exception.getMessage());
-    }*/
 
     @Test
     public void testRegistrarUsuario_NombreUsuarioNulo() {
