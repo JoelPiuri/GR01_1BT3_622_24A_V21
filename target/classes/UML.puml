@@ -1,0 +1,82 @@
+@startuml
+
+package "Models (Entities)" {
+    class Alumno {
+        +int id
+        +String name
+        +String apellido
+        +String semestre
+    }
+
+    class Tutor {
+        +int id
+        +String name
+        +String apellido
+        +String subject
+    }
+
+    class Tutoria {
+        +int id
+        +String materia
+        +Date fecha
+        +String estado
+        +int tutor_id
+    }
+
+    class SolicitudTutoria {
+        +int id
+        +String estado
+        +int alumno_id
+        +int tutoria_id
+    }
+}
+
+package "DAOs" {
+    class AlumnoDAO
+    class TutorDAO
+    class TutoriaDAO
+    class SolicitudTutoriaDAO
+}
+
+package "Servlets" {
+    class AceptarTutoriaServlet
+    class ConsultarTutoriasServlet
+    class RegistrarTutoriaServlet
+    class ResponderSolicitudTutoriaServlet
+    class SeleccionRolServlet
+    class SolicitudTutoriaServlet
+    class VerTutoriasAceptadasServlet
+    class VerTutoriasServlet
+}
+
+package "Utils" {
+    class HibernateUtil
+}
+
+package "JSP Pages" {
+    class "tutoriasDisponibles.jsp"
+    class "verTutorias.jsp"
+    class "verTutoriasAceptadas.jsp"
+    class "usuario.jsp"
+    class "registrarTutoria.jsp"
+}
+
+
+AlumnoDAO --> Alumno
+TutorDAO --> Tutor
+TutoriaDAO --> Tutoria
+SolicitudTutoriaDAO --> SolicitudTutoria
+
+AceptarTutoriaServlet --> SolicitudTutoriaDAO
+ConsultarTutoriasServlet --> TutoriaDAO
+RegistrarTutoriaServlet --> TutoriaDAO
+ResponderSolicitudTutoriaServlet --> SolicitudTutoriaDAO
+SeleccionRolServlet --> Alumno
+SeleccionRolServlet --> Tutor
+SolicitudTutoriaServlet --> SolicitudTutoriaDAO
+VerTutoriasAceptadasServlet --> SolicitudTutoriaDAO
+VerTutoriasServlet --> TutoriaDAO
+
+HibernateUtil --> "All DAOs"
+
+@enduml
