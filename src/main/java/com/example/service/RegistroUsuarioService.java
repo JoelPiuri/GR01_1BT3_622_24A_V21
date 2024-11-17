@@ -16,12 +16,13 @@ public class RegistroUsuarioService {
     private final TutorDAO tutorDAO = new TutorDAO();
     private final UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-    public void registrarUsuario(String nombre, String apellido, String correo, String rolId,
-                                 String nombreUsuario, String contrasena, InputStream archivoPDF) throws Exception {
-        if (nombreUsuario == null || nombreUsuario.isEmpty())
+    public void registrarUsuario(String nombre, String apellido, String correo, String rolId, String nombreUsuario, String contrasena, InputStream archivoPDF) throws Exception {
+        if (nombreUsuario == null || nombreUsuario.isEmpty()) {
             throw new Exception("El nombre de usuario es obligatorio.");
-        if (contrasena == null || contrasena.isEmpty()) throw new Exception("La contraseña es obligatoria.");
-        // todo:Cambios para pruebas
+        }
+        if (contrasena == null || contrasena.isEmpty()) {
+            throw new Exception("La contraseña es obligatoria.");
+        }
         if (nombre == null || nombre.isEmpty()) throw new Exception("El nombre es obligatorio.");
         if (apellido == null || apellido.isEmpty()) throw new Exception("El apellido es obligatorio.");
         if (correo == null || correo.isEmpty()) throw new Exception("El correo es obligatorio.");
@@ -29,10 +30,14 @@ public class RegistroUsuarioService {
         if (isCorreoExistente(correo, rolId)) {
             throw new Exception("El correo ya está registrado: " + correo);
         }
+
         Usuario usuario = new Usuario();
         usuario.setNombreUsuario(nombreUsuario);
         usuario.setContrasena(contrasena);
         usuario.setRolId(Integer.parseInt(rolId));
+
+        usuarioDAO.saveUsuario(usuario); // Guarda el usuario y genera el ID
+
         int referenciaId;
         if (rolId.equals("1")) {
             referenciaId = registrarAlumno(nombre, apellido, correo, usuario);
@@ -41,7 +46,7 @@ public class RegistroUsuarioService {
         } else {
             throw new IllegalArgumentException("Rol no válido para el registro de usuarios.");
         }
-        usuarioDAO.saveUsuario(usuario); // Guarda el usuario y genera el ID
+
         usuario.setReferenciaId(referenciaId);
         usuarioDAO.updateUsuario(usuario);
     }
