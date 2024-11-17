@@ -67,21 +67,23 @@ public class RegistroUsuarioServiceTest {
     }
 
     @Test
-    public void testRegistrarUsuario_CorreoExistenteAlumno() {
+    public void testRegistrarUsuario_ContrasenaNula() {
+        RegistroUsuarioService registroUsuarioService = new RegistroUsuarioService();
         Exception exception = Assertions.assertThrows(Exception.class, () -> {
-            registroUsuarioService.registrarUsuario("Ale", "Vizuete", "kerlly.vizuete@epn.edu.ec",
-                    "1", "kerlly", "password123", null);
+            registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
+                    "1", "Juan", null, null);
         });
-        Assertions.assertTrue(exception.getMessage().contains("El correo ya está registrado"));
+        assert (exception.getMessage().contains("La contraseña es obligatoria."));
     }
 
     @Test
-    public void testRegistrarUsuario_RolIncorrecto() {
-        Exception exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            registroUsuarioService.registrarUsuario("Kerlly", "Luna", "kerlly.luna@epn.edu.ec",
-                    "10", "kerlly-luna", "password789", null);
+    public void testRegistrarUsuario_NombreUsuarioNulo() {
+        RegistroUsuarioService registroUsuarioService = new RegistroUsuarioService();
+        Exception exception = Assertions.assertThrows(Exception.class, () -> {
+            registroUsuarioService.registrarUsuario("Juan", "Proanio", "juan.proanio@epn.edu.ec",
+                    "1", null, "Juan123", null);
         });
-        Assertions.assertEquals("Rol no válido para el registro de usuarios.", exception.getMessage());
+        assert (exception.getMessage().contains("El nombre de usuario es obligatorio."));
     }
 }
 

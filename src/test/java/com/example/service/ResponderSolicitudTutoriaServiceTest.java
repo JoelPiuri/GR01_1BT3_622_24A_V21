@@ -1,7 +1,7 @@
 package com.example.service;
 
-import com.example.model.SolicitudTutoria;
 import com.example.dao.SolicitudTutoriaDAO;
+import com.example.model.SolicitudTutoria;
 import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
