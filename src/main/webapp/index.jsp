@@ -21,8 +21,6 @@
 </form>
 <!-- Botón para registrarse -->
 <br>
-<a href="registro.jsp">
-    <button type="button">Registrarse</button>
-</a>
+
 </body>
 </html>
