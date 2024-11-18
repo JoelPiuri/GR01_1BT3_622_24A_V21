@@ -48,25 +48,31 @@ public class VerTutoriasServlet extends HttpServlet {
             solicitudes = solicitudDAO.getSolicitudesPorTutor(tutorId);
         }
 
-        // Crear un mapa para almacenar el estado de los cupos completos para cada tutoría
+        // Crear mapas para almacenar información adicional
         Map<Integer, Boolean> cuposCompletosMap = new HashMap<>();
         Map<Integer, Integer> solicitudesAceptadasMap = new HashMap<>();
+        Map<Integer, Double> promediosEncuestasMap = new HashMap<>();
 
-        // Validar cupos para cada tutoría
+        // Validar cupos y calcular promedios de encuestas
         for (Tutoria tutoria : tutorias) {
             int solicitudesAceptadas = solicitudDAO.contarSolicitudesAceptadasPorTutoria(tutoria.getId());
             boolean cuposCompletos = solicitudesAceptadas >= tutoria.getCupos();
-            cuposCompletosMap.put(tutoria.getId(), cuposCompletos);
-            solicitudesAceptadasMap.put(tutoria.getId(), solicitudesAceptadas); // Guardar el número de solicitudes aceptadas
+            double promedioEncuestas = tutoriaDAO.obtenerPromedioEncuestas(tutoria.getId());
 
+            cuposCompletosMap.put(tutoria.getId(), cuposCompletos);
+            solicitudesAceptadasMap.put(tutoria.getId(), solicitudesAceptadas);
+            promediosEncuestasMap.put(tutoria.getId(), promedioEncuestas); // Agregar promedio al mapa
         }
 
+        // Enviar datos al JSP
         request.setAttribute("tutorias", tutorias);
         request.setAttribute("solicitudes", solicitudes);
         request.setAttribute("estadoSeleccionado", estado);
-        request.setAttribute("cuposCompletosMap", cuposCompletosMap); // Enviar el mapa al JSP
+        request.setAttribute("cuposCompletosMap", cuposCompletosMap);
         request.setAttribute("solicitudesAceptadasMap", solicitudesAceptadasMap);
+        request.setAttribute("promediosEncuestasMap", promediosEncuestasMap);
 
         request.getRequestDispatcher("/Tutor/verTutorias.jsp").forward(request, response);
     }
+
 }

@@ -32,6 +32,24 @@ public class TutoriaDAO {
         }
         return tutoria;
     }
+    public double obtenerPromedioEncuestas(int tutoriaId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Consulta para obtener el promedio de calificaciones de las respuestas de la tutoría
+            String hql = "SELECT AVG(r.calificacion) " +
+                    "FROM RespuestaEncuesta r " +
+                    "JOIN r.solicitud s " +
+                    "WHERE s.tutoria.id = :tutoriaId";
+            Double promedio = session.createQuery(hql, Double.class)
+                    .setParameter("tutoriaId", tutoriaId)
+                    .uniqueResult();
+            return promedio != null ? promedio : 0.0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0.0;
+        }
+    }
+
+
     public List<Tutoria> buscarTutoriasDisponiblesConFiltros(int alumnoId, Integer materiaId, String ordenFecha) {
         try (Session session = sessionFactory.openSession()) {
             String hql = "FROM Tutoria t WHERE NOT EXISTS " +

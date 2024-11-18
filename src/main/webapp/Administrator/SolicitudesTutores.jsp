@@ -36,6 +36,17 @@
         materiaSection.style.display = "none";
       }
     }
+    function validateForm(event) {
+      var form = event.target; // Obtiene el formulario que disparó el evento.
+      var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      var isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+      if (!isChecked) {
+        alert("Debe seleccionar al menos una materia para aprobar al tutor.");
+        event.preventDefault(); // Prevenir el envío del formulario.
+        return false;
+      }
+      return true; // Permitir el envío del formulario.
+    }
   </script>
 </head>
 <body>
@@ -77,7 +88,10 @@
           <!-- Formulario para cambiar el estado a "Activo" y asignar materias -->
           <div id="materiaSection-${tutor.id}" class="materia-section">
             <h3>Asignación de Materias para ${tutor.nombre} ${tutor.apellido}</h3>
-            <form action="${pageContext.request.contextPath}/ActualizarEstadoYMateriasServlet" method="post">
+            <form
+                    action="${pageContext.request.contextPath}/ActualizarEstadoYMateriasServlet"
+                    method="post"
+                    onsubmit="validateForm(event);">
               <input type="hidden" name="tutorId" value="${tutor.id}">
 
               <!-- Selección de materias -->

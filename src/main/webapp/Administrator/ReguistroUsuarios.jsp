@@ -19,6 +19,7 @@
       var nombre = document.getElementById("nombre").value;
       var apellido = document.getElementById("apellido").value;
       var correo = document.getElementById("correo").value;
+      var rol = document.getElementById("rol").value;
 
       // Validación de nombre y apellido (solo letras y espacios)
       var nombreApellidoRegex = /^[a-zA-Z\s]+$/;
@@ -36,6 +37,16 @@
       if (!correoRegex.test(correo)) {
         alert("El correo debe terminar en @epn.edu.ec.");
         return false;
+      }
+
+      // Validación de materias si el rol es 'Tutor'
+      if (rol === "2") {
+        var checkboxes = document.querySelectorAll('#materiaField input[type="checkbox"]');
+        var isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+        if (!isChecked) {
+          alert("Debe seleccionar al menos una materia si el rol es Tutor.");
+          return false;
+        }
       }
 
       return true;

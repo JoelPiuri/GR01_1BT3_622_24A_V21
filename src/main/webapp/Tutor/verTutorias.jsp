@@ -18,6 +18,7 @@
     <th>Fecha</th>
     <th>Cupos Totales</th>
     <th>Cupos Aceptados</th>
+    <th>Promedio Encuestas (5)</th> <!-- Nueva columna -->
   </tr>
   <c:forEach var="tutoria" items="${tutorias}">
     <tr>
@@ -25,10 +26,21 @@
       <td>${tutoria.materia.nombre}</td>
       <td><fmt:formatDate value="${tutoria.fecha}" pattern="dd-MM-yyyy" /></td>
       <td>${tutoria.cupos}</td>
-      <td>${solicitudesAceptadasMap[tutoria.id]}</td> <!-- Muestra el número de cupos aceptados -->
+      <td>${solicitudesAceptadasMap[tutoria.id]}</td>
+      <td>
+        <c:choose>
+          <c:when test="${not empty promediosEncuestasMap[tutoria.id]}">
+            ${promediosEncuestasMap[tutoria.id]}
+          </c:when>
+          <c:otherwise>
+            N/A
+          </c:otherwise>
+        </c:choose>
+      </td>
     </tr>
   </c:forEach>
 </table>
+
 
 <h2>Solicitudes Recibidas</h2>
 

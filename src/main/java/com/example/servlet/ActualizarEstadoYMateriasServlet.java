@@ -25,7 +25,7 @@ public class ActualizarEstadoYMateriasServlet extends HttpServlet {
             tutorService.aprobarTutorYAsignarMaterias(tutorId, materiasSeleccionadas);
 
             // Redireccionar a una página de éxito o confirmar acción
-            response.sendRedirect(request.getContextPath() + "/Administrator/SolicitudesTutores.jsp");
+            response.sendRedirect(request.getContextPath() + "/SolicitudeTutoreServlet");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");
