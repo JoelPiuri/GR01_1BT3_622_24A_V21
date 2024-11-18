@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings for SQLite -->
+        <property name="hibernate.connection.driver_class">org.sqlite.JDBC</property>
+        <!--<property name="hibernate.connection.url">jdbc:sqlite:D:\Users\joel.piuri\GR01_1BT3_622_24A_V21\src\main\resources\TutoriasDB.db</property>-->
+
+       <!-- Linea para empaquetar en el contenedor de tomcat -->
+        <property name="hibernate.connection.url">jdbc:sqlite:webapps/GR01_1BT3_622_24A_V21/WEB-INF/classes/TutoriasDB.db</property>
+
+        <!-- SQLite Dialect -->
+        <property name="hibernate.dialect">org.sqlite.hibernate.dialect.SQLiteDialect</property>
+
+        <!-- Contexto de sesión para aplicaciones basadas en hilos -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!-- Mostrar todas las consultas SQL ejecutadas -->
+        <property name="hibernate.show_sql">true</property>
+
+        <!-- Actualiza la base de datos al iniciar -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Mapeo de clases -->
+        <mapping class="com.example.model.Tutoria"/>
+        <mapping class="com.example.model.Tutor"/>
+        <mapping class="com.example.model.Alumno"/>
+        <mapping class="com.example.model.SolicitudTutoria"/>
+        <mapping class="com.example.model.Materia"/>
+        <mapping class="com.example.model.Solicitud"/>
+        <mapping class="com.example.model.Rol"/>
+        <mapping class="com.example.model.Administrador"/>
+        <mapping class="com.example.model.PreguntasEncuesta"/>
+        <mapping class="com.example.model.RespuestaEncuesta"/>
+        <mapping class="com.example.model.Usuario"/>
+
+
+    </session-factory>
+</hibernate-configuration>
