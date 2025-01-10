@@ -1,0 +1,45 @@
+trigger:
+  none  # Se ejecuta en cada push a la rama master
+
+pool:
+  name: AgentePrueba  # Nombre del pool de tu agente local
+
+variables:
+  javaHome: 'C:\Program Files\Java\jdk-21'
+  tomcatDir: 'C:\apache-tomcat-10.1.31'  # Ruta del directorio de Tomcat
+
+steps:
+# Paso 1: Configurar Java 21 manualmente (para agente Windows)
+- script: |
+    echo "Configurando Java 21..."
+    set JAVA_HOME=${{ variables.javaHome }}
+    set PATH=%JAVA_HOME%\bin;%PATH%
+    java -version
+  displayName: 'Configurar Java 21'
+
+# Paso 2: Restaurar dependencias
+- script: |
+    echo "Restaurando dependencias..."
+    mvn clean install -DskipTests=true
+    mvn com.microsoft.azure:azure-webapp-maven-plugin:2.13.0:config
+  displayName: 'Restaurar dependencias'
+
+# Paso 3: Ejecutar pruebas
+- script: |
+    echo "Ejecutando pruebas..."
+    mvn test
+  displayName: 'Ejecutar pruebas'
+
+# Paso 4: Construir la aplicación
+- script: |
+    echo "Construyendo el proyecto..."
+    mvn package
+  displayName: 'Construir aplicación'
+
+# Paso 5: Publicar artefactos
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)\target'  # Cambia la ruta si es necesario
+    ArtifactName: 'GR01_2B_622_24A'
+  displayName: 'Publicar artefactos'
+
